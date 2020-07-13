@@ -3,15 +3,16 @@
 import { sleep, group } from "k6";
 import http from "k6/http";
 
-
-
 export let options = {
   insecureSkipTLSVerify: true,
   batch: 38,
+  stages: [
+    { duration: "5s", target: 10 },
+    //{ duration: "5m", target: 10 },
+    //{ duration: "10m", target: 35 },
+    //{ duration: "3m", target: 0 },
+  ],
 };
-
-
-
 
 export default function () {
   let response;
