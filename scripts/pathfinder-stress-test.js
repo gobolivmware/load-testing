@@ -3,18 +3,25 @@
 import { sleep, group } from "k6";
 import http from "k6/http";
 
+// Exitem requisicoes para o backend https://portal.pathfinder.vmware.com/api/v1/paths
+// Colocar o api-gateway no cloudfront ou limitar o gateway?, sem limitar o lambda sabemos que possivelmente o banco cai
+// teremos o mesmo custo do teste anterior?
+// fazer um ramp up passando pelo API Gateway e medir o custo gerado nesse ramp up
+
 export let options = {
   insecureSkipTLSVerify: true,
-  batch: 38,
   stages: [
     { duration: "5s", target: 10 },
     //{ duration: "5m", target: 10 },
     //{ duration: "10m", target: 35 },
     //{ duration: "3m", target: 0 },
   ],
+
+  // TODO: define the amazon regions from k6
 };
 
 export default function () {
+  
   let response;
 
   group("page_1 - http://pathfinder.vmware.com/", function () {

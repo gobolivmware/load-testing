@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { check, sleep } from "k6";
+import { check } from "k6";
 
 // INIT CODE
 export let options = {
@@ -18,6 +18,7 @@ export let options = {
 // similar to the "main" function in Java,
 // the default entry for the Virtual Users, for the test start.
 export default function () {
+  
   // VIRTUAL USER CODE
   let res = http.get("https://stg.pathfinder.vmware.com/");
   check(res, { "status was 200": (r) => r.status == 200 });
